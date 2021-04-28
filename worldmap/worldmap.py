@@ -325,7 +325,7 @@ def _to_svg(df, attributesOUT, Param):
     f = open(Param['filename'], "w+")
     # f.write('<?xml version="1.0" encoding="utf-8"?>\n')
     f.write('<?xml version="1.0" encoding="latin1"?>\n')
-    f.write('<svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">\n\n\n')
+    f.write('<svg viewBox="0 0 1009 665" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">\n\n\n')
     f.write('<defs>\n')
 
     # WRITE THE COLORSCHEME STYLES
