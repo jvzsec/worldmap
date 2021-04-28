@@ -8,7 +8,7 @@ from worldmap.worldmap import (
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '0.1.6'
+__version__ = '0.1.6-mod'
 
 # module level doc-string
 __doc__ = """
