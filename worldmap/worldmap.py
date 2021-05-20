@@ -17,14 +17,16 @@ from svgpathtools import svg2paths
 import colourmap
 import seaborn as sns
 import webbrowser
+import requests
 
 from worldmap.utils.zip_extract import zip_extract
 from worldmap.utils.deepStringMatching import deepStringMatching
 
 global PATH_MAPZIP, CITYCODE
-curpath = os.path.dirname(os.path.abspath(__file__))
-CITYCODE = os.path.abspath(os.path.join(curpath,'data','citycode.txt'))
-PATH_MAPZIP = os.path.abspath(os.path.join(curpath,'data','SVG_MAPS.zip'))
+DEFAULT_CONFIG_DIR = os.path.expanduser('~/.config/worldmap/')
+WORLDMAP_ASSETS_DIR = os.getenv('WORLDMAP_ASSETS_DIR') or DEFAULT_CONFIG_DIR
+CITYCODE = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'data', 'citycode.txt'))
+PATH_MAPZIP = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'data', 'SVG_MAPS.zip'))
 
 
 # %% Main
@@ -270,17 +272,23 @@ def download_resources(url='https://erdogant.github.io/datasets/SVG_MAPS.zip', v
     tuple containing import status and resources.
 
     """
-    import wget
-    curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-    PATH_TO_DATA = os.path.join(curpath, wget.filename_from_url(url))
+    from urllib.parse import urlparse
+    fname = os.path.basename(urlparse(url).path) or None
+    path_to_data = os.path.join(WORLDMAP_ASSETS_DIR, fname)
+
+    # Check folder exists
+    if not os.path.isdir(WORLDMAP_ASSETS_DIR):
+        os.makedirs(WORLDMAP_ASSETS_DIR, 0o700)
 
     # Check file exists.
-    if not os.path.isfile(PATH_TO_DATA):
+    if not os.path.isfile(path_to_data):
         if verbose>=3: print('[worldmap] Downloading resources..')
-        wget.download(url, curpath)
+        r = requests.get(url)
+        with open(path_to_data, 'wb') as f:
+            f.write(r.content)
 
     # Extract and import local dataset
-    [DIROK, DIRMAP] = _extract_zip_files(PATH_TO_DATA)
+    [DIROK, DIRMAP] = _extract_zip_files(path_to_data)
     # Return
     return DIROK, DIRMAP
 
