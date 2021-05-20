@@ -25,8 +25,8 @@ from worldmap.utils.deepStringMatching import deepStringMatching
 global PATH_MAPZIP, CITYCODE
 DEFAULT_CONFIG_DIR = os.path.expanduser('~/.config/worldmap/')
 WORLDMAP_ASSETS_DIR = os.getenv('WORLDMAP_ASSETS_DIR') or DEFAULT_CONFIG_DIR
-CITYCODE = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'data', 'citycode.txt'))
-PATH_MAPZIP = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'data', 'SVG_MAPS.zip'))
+CITYCODE = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'citycode.txt'))
+PATH_MAPZIP = os.path.abspath(os.path.join(WORLDMAP_ASSETS_DIR, 'SVG_MAPS.zip'))
 
 
 # %% Main
